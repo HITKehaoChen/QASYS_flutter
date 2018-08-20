@@ -1,109 +1,173 @@
 import 'package:flutter/material.dart';
+void main()=>runApp(MyApp());
 
-void main() => runApp(new MyApp());
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: 'Flutter Askme',
-      theme: new ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or press Run > Flutter Hot Reload in IntelliJ). Notice that the
-        // counter didn't reset back to zero; the application is not restarted.
-        primarySwatch: Colors.white,
-      ),
-      home: new MyHomePage(title: 'Ask Me Home Page'),
+    Widget titleSection = new Container(
+     padding: const EdgeInsets.all(8.0),
+     child: Row(
+       children: <Widget>[
+         Expanded(
+           child: Column(
+             crossAxisAlignment: CrossAxisAlignment.start,
+             children: <Widget>[
+               Container(
+                 padding: const EdgeInsets.only(bottom: 8.0),
+                 child: Text(
+                   'This is a QA App',
+                   style: TextStyle(
+                     fontWeight: FontWeight.bold,
+                   ),
+                 ),
+               ),
+               Text(
+                 'You can check features here.',
+               style: TextStyle(
+                 color: Colors.grey[500],
+               ),
+               )
+             ],
+           ),
+         ),
+         Icon(Icons.android, color:Colors.blue,),
+       ],
+     ),
     );
-  }
-}
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+    Column buildButtonColumn(IconData icon,String label){
+      Color color = Theme.of(context).primaryColor;
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Icon(
+            icon,color: color,
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
+          ),
+          Container(
+            margin: const EdgeInsets.only(top:8.0),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 12.0,
+                fontWeight: FontWeight.w400,
+                color: color
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+    Widget buttonSection = Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          buildButtonColumn(Icons.question_answer, 'Q&A'),
+          buildButtonColumn(Icons.history, 'history'),
+          buildButtonColumn(Icons.info_outline, 'About us'),
 
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => new _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return new Scaffold(
-      appBar: new AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: new Text(widget.title),
+        ],
       ),
-      body: new Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: new Column(
-          // Column is also layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug paint" (press "p" in the console where you ran
-          // "flutter run", or select "Toggle Debug Paint" from the Flutter tool
-          // window in IntelliJ) to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
+    );
+    Widget textSection = Container(
+      padding: const EdgeInsets.all(16.0),
+      child: Text(
+        '''
+        各指导老师和参赛学生：
+          首先恭喜您及您的赛队决赛第一轮中表现突出，顺利晋级第二轮的现场决赛！
+          （名单详见：第七届大赛晋级决赛第二轮队名单）现将决赛相关注意事项通知如下：
+        ''',
+        softWrap: true,
+      ),
+    );
+
+    return MaterialApp(
+      title: 'ASK ME',
+      routes: <String,WidgetBuilder>{
+        '/info':(BuildContext context)=>new MyPage (title:'info page'),
+      },
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('ASK ME'),
+        ),
+        body: ListView(
+          padding: EdgeInsets.only(top: 8.0),
           children: <Widget>[
-            new Text(
-              'You have pushed the button this many times:',
-            ),
-            new Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
+            Image.asset('images/askme.jpg',width:600.0,height: 240.0,fit: BoxFit.cover,),
+            titleSection,
+            textSection,
+            buttonSection,
           ],
         ),
       ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: new Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
+
+class MyPage extends StatelessWidget{
+  MyPage({Key key, this.title}) : super(key: key);
+  final String title;
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text(title),
+      ),
+    );
+  }
+}
+
+class InfoPage extends StatefulWidget{
+  InfoPage({Key key,this.title}):super(key:key);
+  final String title;
+  @override
+  _InfoPageState createState()=>new _InfoPageState();
+}
+
+class _InfoPageState extends State<InfoPage>{
+   void _newInfoPage(){
+     setState(() {
+       Navigator.of(context).push(new MaterialPageRoute<Null>(
+           builder: (BuildContext context){
+             return new Scaffold(
+               appBar: AppBar(
+               title: new Text('About us'),
+               ),
+               body: new Center(
+                 child: 
+                 new Text('''
+                 钱贵十呼皆者醒丝醉朝且君且进尔。饮饮水须宰少子平主王材海宰惟呼。时空且足五听将夫愿其圣寞得裘金。
+                 意留一暮贵必一人径雪悲必奔恣海。曲发使乐须寞见马明牛儿同散钟一。悲将须昔取天花名玉岑花且时恣回。
+                 进取宴呼有百花高丝白且请时百恣。昔千人明万贤马丹一还必贤听见五。十复复停丝丘时暮古使且且高皆足。
+                 时长为寂寞复寂何且恣之惟斗奔朝。奔黄奔发三复留乐到停换人愿须莫。
+                 言沽足高谑流主圣鼓尽寂花鼓进歌。惟寂将惟与千丝上美取五耳有明者。河皆散足须出玉将奔请一皆言宴青。
+                 请生皆君天贤乐醉一镜寞回河恣莫。
+                 '''),
+
+               ),
+             );
+           })
+       );
+     });
+   }
+   @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text(widget.title),
+      ),
+      body: new Center(
+        child: new Text('''钱贵十呼皆者醒丝醉朝且君且进尔。饮饮水须宰少子平主王材海宰惟呼。时空且足五听将夫愿其圣寞得裘金。
+                 意留一暮贵必一人径雪悲必奔恣海。曲发使乐须寞见马明牛儿同散钟一。悲将须昔取天花名玉岑花且时恣回。
+                 进取宴呼有百花高丝白且请时百恣。昔千人明万贤马丹一还必贤听见五。十复复停丝丘时暮古使且且高皆足。
+                 时长为寂寞复寂何且恣之惟斗奔朝。奔黄奔发三复留乐到停换人愿须莫。
+                 言沽足高谑流主圣鼓尽寂花鼓进歌。惟寂将惟与千丝上美取五耳有明者。河皆散足须出玉将奔请一皆言宴青。
+                 请生皆君天贤乐醉一镜寞回河恣莫。
+        '''),
+      ),
+    );
+  }
+  }
