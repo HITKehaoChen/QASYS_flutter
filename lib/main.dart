@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
-void main()=>runApp(MyApp());
+void main(){
+  runApp(new MaterialApp(
+    home: MyApp(),
+//    routes: <String,WidgetBuilder>{
+//
+//    },
+  ));
+}
 
 class MyApp extends StatelessWidget{
   @override
