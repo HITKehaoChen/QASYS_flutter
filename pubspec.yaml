@@ -2,6 +2,7 @@ name: askme
 description: a QA system
 
 dependencies:
+  dio: 1.0.1
   flutter:
     sdk: flutter
 
