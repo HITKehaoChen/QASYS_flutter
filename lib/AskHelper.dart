@@ -12,7 +12,13 @@ void init(){
   Options options = new Options(
     baseUrl: "http://127.0.0.1:5000/query",
     connectTimeout: 5000,
-    receiveTimeout: 3000,
+    receiveTimeout: 3000,//3s
+    headers: {
+      "user-agent": "dio",
+      "api": "1.0.0"
+    },
+    contentType: ContentType.JSON,
+    responseType: ResponseType.PLAIN
   );
   Dio dio = new Dio(options);
 }
