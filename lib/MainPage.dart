@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'AskPage.dart';
+import 'HistoryPage.dart';
+import 'AboutPage.dart';
 
 class MainPage extends StatelessWidget{
   @override
@@ -73,7 +76,4 @@ class MainPageState extends State<MainPageWidget>{
       ),
     );
   }
-
-
-
 }
