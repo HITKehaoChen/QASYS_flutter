@@ -18,6 +18,17 @@ class AskState extends State<AskPage>{
     // TODO: implement initState
     super.initState();
     init();
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return new Scaffold(
+      body: new Scaffold(
+        body: new Center(
+          child: new Text("问答"),
+        ),
+      ),
+    );
   }
 }
